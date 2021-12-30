@@ -78,3 +78,32 @@ freopen("outputf.in", "w", stdout);
 		cout << 2 * (k - mid - 1);
 	}
 }
+
+
+/* *********************Best Solution:************************* 
+
+#include<bits/stdc++.h>
+using namespace std;
+
+int main(){
+    long long n,k;
+    cin>>n>>k;
+    
+    if (n%2 ==1 && k <= (n/2)+1){
+        cout<<(k*2)-1;
+    }
+
+    else if ( n%2 == 0 && k <= n/2){
+        cout<< (k*2) -1;
+    }
+    
+    else{
+        if(n%2 == 0){
+            cout<< (k - n/2)*2;
+        }
+        else{
+            cout<< (k - n/2)*2 -2;
+        }
+    }
+}
+*/
