@@ -4,25 +4,19 @@
 
 using namespace std;
 
-#define fastio() ios_base::sync_with_stdio(false);cin.tie(NULL);cout.tie(NULL)
-#define MOD 1000000007
-#define MOD1 998244353
-#define INF 1e18
-#define nline "\n"
+#define fastio() ios_base::sync_with_stdio(false);cin.tie(nullptr);
+#define nl "\n"
 #define pb push_back
 #define ppb pop_back
 #define mp make_pair
 #define ff first
 #define ss second
-#define PI 3.141592653589793238462
-#define set_bits __builtin_popcountll
 #define sz(x) ((int)(x).size())
 #define all(x) (x).begin(), (x).end()
 
 typedef long long ll;
 typedef unsigned long long ull;
 typedef long double lld;
-// typedef tree<pair<int, int>, null_type, less<pair<int, int>>, rb_tree_tag, tree_order_statistics_node_update > pbds; // find_by_order, order_of_key
 
 #ifndef ONLINE_JUDGE
 #define debug(x) cerr << #x <<" "; _print(x); cerr << endl;
@@ -50,6 +44,7 @@ template <class T> void _print(multiset <T> v) {cerr << "[ "; for (T i : v) {_pr
 template <class T, class V> void _print(map <T, V> v) {cerr << "[ "; for (auto i : v) {_print(i); cerr << " ";} cerr << "]";}
 
 int main() {
+	// clock_t tStart = clock();
 	fastio();
 
 #ifndef ONLINE_JUDGE
@@ -60,27 +55,38 @@ freopen("outputf.in", "w", stdout);
 #ifndef ONLINE_JUDGE
 	freopen("Error.txt", "w", stderr);
 #endif
-	vector <int> v {1,2,1,1,3,3,3,4,5,4};
-    
-    // remove consecutive (adjacent) duplicates
-    auto last = std::unique(v.begin(), v.end());
-    // v now holds {1 2 1 3 4 5 4 x x x}, where 'x' is indeterminate
-    v.erase(last, v.end());
-    debug(v);
+	ll t;
+	cin >> t;
+	while (t--) {
+		ll n, k;
+		cin >> n >> k;
+		bool flag = true;
 
-    // sort followed by unique, to remove all duplicates
-    std::sort(v.begin(), v.end()); // {1 1 2 3 4 4 5}
-    debug(v);
- 
-    last = std::unique(v.begin(), v.end());
-    // v now holds {1 2 3 4 5 x x}, where 'x' is indeterminate
-    v.erase(last, v.end());
-    debug(v);
+		vector<ll> v(n);
+		for (int i = 0; i < n; i++) {
+			v.at(i) = i + 1;
+		}
 
-    char s[] = "abcccdddbbaa";
-    int newlen = unique(s, s + strlen(s)) - s;
-    // newlen is the new length of the string
-    
-    s[newlen] = 0;
-    cout << s << '\n';
+		if (n > 1 && k == 1) {
+			flag = false;
+		} 
+		else {
+			for (int i = 1; i <= n - k; i++) {
+				swap(v.at(n - i), v.at(n - i - 1));
+				debug(v);
+			}
+		}
+
+		if (flag) {
+			for (int i = 0; i < n; i++) {
+				cout << v.at(i) << ' ';
+			}
+		}
+		else {
+			cout << "-1";
+		}
+
+		cout << '\n';
+		debug(v);
+	}
 }

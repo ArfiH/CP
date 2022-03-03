@@ -1,28 +1,22 @@
 // Author : Arfi
-
+// Atcoder abc 239
 #include<bits/stdc++.h>
 
 using namespace std;
 
-#define fastio() ios_base::sync_with_stdio(false);cin.tie(NULL);cout.tie(NULL)
-#define MOD 1000000007
-#define MOD1 998244353
-#define INF 1e18
-#define nline "\n"
+#define fastio() ios_base::sync_with_stdio(false);cin.tie(nullptr);
+#define nl "\n"
 #define pb push_back
 #define ppb pop_back
 #define mp make_pair
 #define ff first
 #define ss second
-#define PI 3.141592653589793238462
-#define set_bits __builtin_popcountll
 #define sz(x) ((int)(x).size())
 #define all(x) (x).begin(), (x).end()
 
 typedef long long ll;
 typedef unsigned long long ull;
 typedef long double lld;
-// typedef tree<pair<int, int>, null_type, less<pair<int, int>>, rb_tree_tag, tree_order_statistics_node_update > pbds; // find_by_order, order_of_key
 
 #ifndef ONLINE_JUDGE
 #define debug(x) cerr << #x <<" "; _print(x); cerr << endl;
@@ -50,7 +44,6 @@ template <class T> void _print(multiset <T> v) {cerr << "[ "; for (T i : v) {_pr
 template <class T, class V> void _print(map <T, V> v) {cerr << "[ "; for (auto i : v) {_print(i); cerr << " ";} cerr << "]";}
 
 int main() {
-	clock_t tStart = clock();
 	fastio();
 
 #ifndef ONLINE_JUDGE
@@ -61,6 +54,54 @@ freopen("outputf.in", "w", stdout);
 #ifndef ONLINE_JUDGE
 	freopen("Error.txt", "w", stderr);
 #endif
-	// To do Code
-	cout << min(1, 1) << '\n';
+	int a, b, c, d;
+	cin >> a >> b >> c >> d;
+	int mn = a + c;
+	int mx = b + d;
+
+	int np = 0; // Numebr of primes between mn and mx
+	int nc = 0; // Number of composites between mn and mx;
+
+	vector<int> p = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 
+	41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97, 101, 103, 
+	107, 109, 113, 127, 131, 137, 139, 149, 151, 157, 163, 167,
+	173, 179, 181, 191, 193, 197, 199 }; 
+
+	int m = b;
+	bool isTaha = false;
+	while (m >= a && !isTaha) {
+		auto it1 = upper_bound(p.begin(), p.end(), m + c) - p.begin();
+		int i = it1;
+		int j = p.at(i);
+		// debug(j);
+
+		int taha = m;
+		int aoki = c;
+		for (aoki = c; aoki < d; aoki++) {
+			int n = taha + aoki;
+			// cout << "n is " << n << '\n';
+			if (n == j) {
+				np++;
+				// cout << "np\n";
+				i--;
+				j = p.at(i);
+				debug(j);
+				break;
+			}
+			else {
+				nc++;
+				// cout << "nc\n";
+			}
+			if (aoki == d) {
+				cout << "Tahakashi\n";
+				isTaha = true;
+				break;
+			}
+		}
+		m--;
+	}
+	if (!isTaha) {
+		cout << "Aoki\n";
+	}
+	// cout << np << ' ' << nc << '\n';
 }

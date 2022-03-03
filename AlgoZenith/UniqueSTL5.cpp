@@ -4,7 +4,7 @@
 
 using namespace std;
 
-#define fastio() ios_base::sync_with_stdio(false);cin.tie(NULL);cout.tie(NULL)
+#define fastio() ios_base::sync_with_stdio(false);cin.tie(nullptr);cout.tie(nullptr)
 #define MOD 1000000007
 #define MOD1 998244353
 #define INF 1e18
@@ -50,7 +50,6 @@ template <class T> void _print(multiset <T> v) {cerr << "[ "; for (T i : v) {_pr
 template <class T, class V> void _print(map <T, V> v) {cerr << "[ "; for (auto i : v) {_print(i); cerr << " ";} cerr << "]";}
 
 int main() {
-	clock_t tStart = clock();
 	fastio();
 
 #ifndef ONLINE_JUDGE
@@ -61,6 +60,28 @@ freopen("outputf.in", "w", stdout);
 #ifndef ONLINE_JUDGE
 	freopen("Error.txt", "w", stderr);
 #endif
-	// To do Code
-	cout << min(1, 1) << '\n';
+	vector <int> v {1,2,1,1,3,3,3,4,5,4};
+    
+    // remove consecutive (adjacent) duplicates
+    auto last = std::unique(v.begin(), v.end());
+    // v now holds {1 2 1 3 4 5 4 x x x}, where 'x' is indeterminate
+    v.erase(last, v.end());
+    debug(v);
+
+    // sort followed by unique, to remove all duplicates
+    std::sort(v.begin(), v.end()); // {1 1 2 3 4 4 5}
+    debug(v);
+
+ 
+    last = std::unique(v.begin(), v.end());
+    // v now holds {1 2 3 4 5 x x}, where 'x' is indeterminate
+    v.erase(last, v.end());
+    debug(v);
+
+    char s[] = "abcccdddbbaa";
+    int newlen = unique(s, s + strlen(s)) - s;
+    // newlen is the new length of the string
+    
+    s[newlen] = 0;
+    cout << s << '\n';
 }

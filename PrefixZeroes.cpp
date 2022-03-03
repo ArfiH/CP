@@ -4,25 +4,19 @@
 
 using namespace std;
 
-#define fastio() ios_base::sync_with_stdio(false);cin.tie(NULL);cout.tie(NULL)
-#define MOD 1000000007
-#define MOD1 998244353
-#define INF 1e18
-#define nline "\n"
+#define fastio() ios_base::sync_with_stdio(false);cin.tie(nullptr);
+#define nl "\n"
 #define pb push_back
 #define ppb pop_back
 #define mp make_pair
 #define ff first
 #define ss second
-#define PI 3.141592653589793238462
-#define set_bits __builtin_popcountll
 #define sz(x) ((int)(x).size())
 #define all(x) (x).begin(), (x).end()
 
 typedef long long ll;
 typedef unsigned long long ull;
 typedef long double lld;
-// typedef tree<pair<int, int>, null_type, less<pair<int, int>>, rb_tree_tag, tree_order_statistics_node_update > pbds; // find_by_order, order_of_key
 
 #ifndef ONLINE_JUDGE
 #define debug(x) cerr << #x <<" "; _print(x); cerr << endl;
@@ -50,7 +44,7 @@ template <class T> void _print(multiset <T> v) {cerr << "[ "; for (T i : v) {_pr
 template <class T, class V> void _print(map <T, V> v) {cerr << "[ "; for (auto i : v) {_print(i); cerr << " ";} cerr << "]";}
 
 int main() {
-	clock_t tStart = clock();
+	// clock_t tStart = clock();
 	fastio();
 
 #ifndef ONLINE_JUDGE
@@ -61,6 +55,41 @@ freopen("outputf.in", "w", stdout);
 #ifndef ONLINE_JUDGE
 	freopen("Error.txt", "w", stderr);
 #endif
-	// To do Code
-	cout << min(1, 1) << '\n';
+
+	ll t;
+	cin >> t;
+	while (t--) {
+		ll n,k;
+		cin >> n >> k;
+
+		vector<ll> v(n);
+		for (ll i = 0; i < n; i++) {
+			char tmp;
+			cin >> tmp;
+			v.at(i) = tmp - '0';
+		}
+		// debug(v);
+		
+		vector<ll> p(n);
+		ll sum = 0;
+		ll c = 0;
+		for (int i = 0; i < n; i++) {
+			if (sum == 0 && v.at(i) == 0) {
+				c++;
+				continue;
+			}
+			sum += 10 - v.at(i);
+			p.at(i) = sum;
+			if (p.at(i) <= k) {
+				c++;
+			}
+			else if (i == c && v.at(i) == 0) {
+				c++;
+			}
+		}
+		debug(p);
+		cout << c << '\n';
+
+	}
+	// printf("Time taken: %.4fs\n", (double)(clock() - tStart)/CLOCKS_PER_SEC);	
 }
