@@ -1,1 +1,0 @@
-g++ -static -DLOCAL -Wshadow -Wall -std=c++17 -D_GLIBCXX_DEBUG -g -Wextra -s -x c++ a.cpp -o a.exe
