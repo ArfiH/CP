@@ -50,17 +50,38 @@ template <class T> void _print(multiset <T> v) {cerr << "[ "; for (T i : v) {_pr
 template <class T, class V> void _print(map <T, V> v) {cerr << "[ "; for (auto i : v) {_print(i); cerr << " ";} cerr << "]";}
 
 int main() {
-	clock_t tStart = clock();
 	fastio();
 
-#ifndef ONLINE_JUDGE
-freopen("inputf.in", "r", stdin);
-freopen("outputf.in", "w", stdout);
-#endif
+// #ifndef ONLINE_JUDGE
+// freopen("inputf.in", "r", stdin);
+// freopen("outputf.in", "w", stdout);
+// #endif
 	
 #ifndef ONLINE_JUDGE
 	freopen("Error.txt", "w", stderr);
 #endif
-	// To do Code
-	cout << min(1, 1) << '\n';
+	int n;
+	cin >> n;
+	vector<int> v(n);
+	int mx = INT_MIN;
+	int mxi = -1;
+	for (int i = 0; i < n; i++) {
+		cin >> v.at(i);
+		if (v.at(i) > mx) {
+			mx = v.at(i);
+			mxi = i;
+		}
+	}
+
+	int mx2 = INT_MIN;
+	swap(v.at(0), v.at(mxi));
+	for (int i = 1; i < n; i++) {
+		mx2 = max(mx2, v.at(i));
+	}
+	if (n == 1) {
+		cout << v.at(0) << '\n';
+	}
+	else {
+		cout << mx2 << '\n';
+	}
 }
