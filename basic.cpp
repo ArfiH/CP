@@ -62,5 +62,7 @@ freopen("outputf.in", "w", stdout);
 	freopen("Error.txt", "w", stderr);
 #endif
 	// To do Code
-	cout << min(1, 1) << '\n';
+
+	fastio();
+	cout << floor(log2(7)) << '\n';
 }
