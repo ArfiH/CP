@@ -9,7 +9,6 @@ using namespace std;
 #define nline "\n"
 #define pb push_back
 #define ppb pop_back
-#define mp make_pair
 #define ff first
 #define ss second
 #define PI 3.141592653589793238462
@@ -47,40 +46,35 @@ template <class T> void _print(set <T> v) {cerr << "[ "; for (T i : v) {_print(i
 template <class T> void _print(multiset <T> v) {cerr << "[ "; for (T i : v) {_print(i); cerr << " ";} cerr << "]";}
 template <class T, class V> void _print(map <T, V> v) {cerr << "[ "; for (auto i : v) {_print(i); cerr << " ";} cerr << "]";}
 
-
 void init_code()
 {
 #ifndef ONLINE_JUDGE
-    freopen("error.txt", "w", stderr);
+	freopen("error.txt", "w", stderr);
 #endif
 }
 
 int main()
 {
-    init_code();
+	init_code();
+	freopen("cowsignal.in", "r", stdin);
+    freopen("cowsignal.out", "w", stdout);
 
-    // find number of integers less than 1000 which is divisble by 2 or 3 or 5
-    vector<ll> v = {2, 3, 5};
-    ll ans = 0;
-    int n = v.size();
-    for (int i = 1; i < (1 << n); i++) {
-        ll denom = 1;
-        int x = i;
-        int cnt = 0;
-        while (x > 0) {
-            if (x & 1) {
-                denom *= v[cnt];
-            }
-            cnt++;
-            x >>= 1;
-        }
-        if ( __builtin_popcount(i) & 1) {
-            ans += (999 / denom);
-        }
-        else {
-            ans -= (999 / denom);
-        }
-    }
-    cout << ans << '\n';
-    return 0;
+	int m, n, k;
+	cin >> m >> n >> k;
+	for (int i = 0; i < m; i++) {
+		string s;
+		cin >> s;
+		string bigStr = "";
+		for (char c : s) {
+			for (int l = 0; l < k; l++) {
+				bigStr += c;
+			}
+		}
+
+		for (int l = 0; l < k; l++) {
+			cout << bigStr << '\n';
+		}
+	}
+
+	return 0;
 }

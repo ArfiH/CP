@@ -9,7 +9,6 @@ using namespace std;
 #define nline "\n"
 #define pb push_back
 #define ppb pop_back
-#define mp make_pair
 #define ff first
 #define ss second
 #define PI 3.141592653589793238462
@@ -47,40 +46,71 @@ template <class T> void _print(set <T> v) {cerr << "[ "; for (T i : v) {_print(i
 template <class T> void _print(multiset <T> v) {cerr << "[ "; for (T i : v) {_print(i); cerr << " ";} cerr << "]";}
 template <class T, class V> void _print(map <T, V> v) {cerr << "[ "; for (auto i : v) {_print(i); cerr << " ";} cerr << "]";}
 
-
 void init_code()
 {
 #ifndef ONLINE_JUDGE
-    freopen("error.txt", "w", stderr);
+	freopen("error.txt", "w", stderr);
 #endif
 }
 
 int main()
 {
-    init_code();
+	init_code();
+	freopen("traffic.in", "r", stdin);
+    freopen("traffic.out", "w", stdout);
 
-    // find number of integers less than 1000 which is divisble by 2 or 3 or 5
-    vector<ll> v = {2, 3, 5};
-    ll ans = 0;
-    int n = v.size();
-    for (int i = 1; i < (1 << n); i++) {
-        ll denom = 1;
-        int x = i;
-        int cnt = 0;
-        while (x > 0) {
-            if (x & 1) {
-                denom *= v[cnt];
-            }
-            cnt++;
-            x >>= 1;
-        }
-        if ( __builtin_popcount(i) & 1) {
-            ans += (999 / denom);
-        }
-        else {
-            ans -= (999 / denom);
-        }
-    }
-    cout << ans << '\n';
-    return 0;
+	ll n;
+	cin >> n;
+
+	vector< pair<string, pair<ll, ll> > > v(n);
+	for (int i = 0; i < n; i++) {
+		string s;
+		cin >> s;
+		ll a, b;
+		cin >> a >> b;
+		v[i] = {s, {a, b}};	
+	}
+
+	// debug(v);
+
+	ll flowLower = 0, flowUpper = 1e6 - 1;
+
+	for (int i = n - 1; i >= 0; i--) {
+		if (v[i].first == "none") {	
+			flowLower = max(flowLower, v[i].second.first);
+			flowUpper = min(flowUpper, v[i].second.second);
+		}
+		else if (v[i].first == "on") {
+			flowLower -= v[i].second.second;
+			flowUpper -= v[i].second.first; 
+			flowLower = max(0ll, flowLower);	
+		}
+		else if (v[i].first == "off") {	
+			flowLower += v[i].second.second;
+			flowUpper += v[i].second.first; 
+		}
+	}
+	cout << flowLower << ' ' << flowUpper << '\n';
+
+	flowLower = 0ll, flowUpper = 1e6 - 1;
+
+	for (int i = 0; i < n; i++) {
+		if (v[i].first == "none") {
+			flowLower = max(flowLower, v[i].second.first);
+			flowUpper = min(flowUpper, v[i].second.second);
+		}
+		else if (v[i].first == "on") {
+			flowLower += v[i].second.second;
+			flowUpper += v[i].second.first; 	
+		}
+		else if (v[i].first == "off") {	
+			flowLower -= v[i].second.second;
+			flowUpper -= v[i].second.first; 
+			flowLower = max(0ll, flowLower);	
+		}
+		// cout << flowLower << ' ' << flowUpper << '\n';
+	}
+	
+	cout << flowLower << ' ' << flowUpper << '\n';
+	return 0;
 }

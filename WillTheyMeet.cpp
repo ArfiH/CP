@@ -47,40 +47,37 @@ template <class T> void _print(set <T> v) {cerr << "[ "; for (T i : v) {_print(i
 template <class T> void _print(multiset <T> v) {cerr << "[ "; for (T i : v) {_print(i); cerr << " ";} cerr << "]";}
 template <class T, class V> void _print(map <T, V> v) {cerr << "[ "; for (auto i : v) {_print(i); cerr << " ";} cerr << "]";}
 
-
 void init_code()
 {
 #ifndef ONLINE_JUDGE
-    freopen("error.txt", "w", stderr);
+	freopen("error.txt", "w", stderr);
 #endif
 }
 
 int main()
 {
-    init_code();
+	init_code();
 
-    // find number of integers less than 1000 which is divisble by 2 or 3 or 5
-    vector<ll> v = {2, 3, 5};
-    ll ans = 0;
-    int n = v.size();
-    for (int i = 1; i < (1 << n); i++) {
-        ll denom = 1;
-        int x = i;
-        int cnt = 0;
-        while (x > 0) {
-            if (x & 1) {
-                denom *= v[cnt];
-            }
-            cnt++;
-            x >>= 1;
-        }
-        if ( __builtin_popcount(i) & 1) {
-            ans += (999 / denom);
-        }
-        else {
-            ans -= (999 / denom);
-        }
-    }
-    cout << ans << '\n';
-    return 0;
+	ll r, s;
+	cin >> r >> s;
+	ll m, n, p, q;
+	cin >> m >> n >> p >> q;
+	pair<int, int> alice = {0, 0};
+	pair<int, int> bob = {r, s};
+	
+	int cnt = 0;
+	while (alice.first < bob.first && alice.second < bob.second) {
+		alice.first += m;
+		alice.second += n;
+		bob.first -= p;
+		bob.second -= q;
+		cnt++;
+	}
+	if (alice == bob) {
+		cout << cnt << '\n';
+	}
+	else {
+		cout << "-1\n";
+	}
+	return 0;
 }
